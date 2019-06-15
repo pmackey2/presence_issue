@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  redis:
+    image: redis
+    expose:
+      - 6379
+
+
+  master:
+    build: master
+    expose:
+      - 4505
+      - 4506
+    volumes:
+      -  ${PWD}/master.d:/etc/salt/master.d/
+    networks:
+      default:
+        aliases:
+          - salt
+  minion:
+    build: minion
+
